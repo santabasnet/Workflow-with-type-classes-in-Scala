@@ -19,7 +19,7 @@ trait Workflow[FlowState] {
 }
 
 /** A Demand Workflow definition. */
-given DemandFlow[WorkflowDemand] with
+given Workflow[WorkflowDemand] with
     extension (demandState: WorkflowDemand)
         def transition[DemandValueInput](input: DemandValueInput)
         : Option[WorkflowDemand] = demandState match {
@@ -27,6 +27,6 @@ given DemandFlow[WorkflowDemand] with
                 case issueDemand: DemandInput => startState.transitionWith(issueDemand)
 
             case demandIssued: DemandIssued => input match
-                case updateDemand: DemandUpdateInput => demandIssued.transitionWith(updateDemand)
+                case updateDemand: DemandInput => demandIssued.transitionWith(updateDemand)
         }
 
