@@ -1,5 +1,6 @@
 package com.iict.services
 
+import scala.util.Try
 import com.iict.model.ClientInput
 
 /**
@@ -16,12 +17,22 @@ import com.iict.model.ClientInput
 
 /** A state data instance for the WorkflowDemand. */
 case class DemandStart() {
-    def transitionWith(input: DemandInput) = Option.empty[WorkflowDemand]
+    def transitionWith(input: DemandInput) = {
+        val newOutput = Try(DemandIssued("Started..")).toOption
+        val output = s"Start with ${input.toString} to ${newOutput.toString}."
+        println("\nOutput: " + output)
+        newOutput
+    }
 }
 
 /** Another state data instance for the WorkflowDemand. */
-case class DemandIssued() {
-    def transitionWith(input: DemandInput) = Option.empty[WorkflowDemand]
+case class DemandIssued(argument: String) {
+    def transitionWith(input: DemandInput) = {
+        val newOutput = Try(DemandIssued("Issued Arguments")).toOption
+        val output = s"Moved from $argument with ${input.toString} to ${newOutput.toString}."
+        println("\nOutput: " + output)
+        newOutput
+    }
 }
 
 enum State {

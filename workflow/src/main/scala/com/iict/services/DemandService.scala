@@ -15,9 +15,11 @@ import com.iict.model.ClientInput
 object DemandService {
 
     /** Make state change with the input data, possibly in the DB. */
-    def create(input: ClientInput): Option[DemandIssued] = ???
+    def create(input: ClientInput): Option[WorkflowDemand] =
+        DemandStart().transition(input)
 
     /** Make state change to update the data possibly in the DB. */
-    def update(input: ClientInput): Option[DemandIssued] = ???
+    def update(input: ClientInput): Option[WorkflowDemand] =
+        DemandIssued("Issued Arguments").transition(input)
 
 }
