@@ -16,11 +16,11 @@ trait Workflow[FlowState] {
 ## 2. Actions upon the data with create and update functionalities.
 
 ```scala
-/** Make state change with the input data, possibly in the DB. */
+  /** Make state change with the input data, possibly in the DB. */
     def create(input: ClientInput): Option[WorkflowDemand] =
         DemandStart().transition(input)
 
-    /** Make state change to update the data possibly in the DB. */
+  /** Make state change to update the data possibly in the DB. */
     def update(input: ClientInput): Option[WorkflowDemand] =
         DemandIssued("Issued Arguments").transition(input)
 ```
@@ -29,7 +29,7 @@ trait Workflow[FlowState] {
 
 ```scala
 object MainApp extends App {
-    /** An instance of client input, possibly from the input from client request. */
+  /** An instance of client input, possibly from the input from client request. */
     private val input1 = ClientInput("6ABE", "John Doe", State.MOVE)
     private val start =  DemandService.create(input1)
     println("Create Instance Through Transition: \n" + start)
