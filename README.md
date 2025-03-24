@@ -25,3 +25,17 @@ trait Workflow[FlowState] {
         DemandIssued("Issued Arguments").transition(input)
 ```
 
+## 3. Usage
+
+```scala
+object MainApp extends App {
+    /** An instance of client input, possibly from the input from client request. */
+    private val input1 = ClientInput("6ABE", "John Doe", State.MOVE)
+    private val start =  DemandService.create(input1)
+    println("Create Instance Through Transition: \n" + start)
+
+    private val input2 = ClientInput("AABF", "John Doe", State.STOP)
+    private val update = DemandService.update(input2)
+    println("Update Instance Through Transition: \n" + update)
+}
+```
